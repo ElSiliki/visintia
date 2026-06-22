@@ -1,0 +1,248 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Visintia — Design System (Tailwind v4)
+   Black canvas · white type · single yellow accent (#FFC72C)
+   ============================================================ */
+
+@theme {
+  /* Color tokens */
+  --color-background: #000000;
+  --color-surface: #0b0b0d;
+  --color-surface-2: #141418;
+  --color-elevated: #1b1b20;
+
+  --color-foreground: #ffffff;
+  --color-muted: #a3a3ad;
+  --color-subtle: #6c6c76;
+
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.16);
+
+  --color-accent: #ffc72c;
+  --color-accent-strong: #ffd45a;
+  --color-accent-foreground: #0a0a0a;
+
+  /* Radii */
+  --radius-xs: 0.5rem;
+  --radius-sm: 0.75rem;
+  --radius: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+
+  /* Type */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
+
+  /* Easing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Headings: tight, confident */
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: #000;
+  }
+
+  /* Accessible focus ring everywhere */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Tabular figures for data/numbers */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  /* Subtle, on-brand scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #000;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #26262c;
+    border-radius: 999px;
+    border: 2px solid #000;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #34343c;
+  }
+}
+
+/* ---------- Utilities ---------- */
+@layer utilities {
+  /* Eyebrow / technical label */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  /* Fluid display sizes (clamp) */
+  .text-display {
+    font-size: clamp(2.5rem, 1.4rem + 5.4vw, 6.25rem);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    font-weight: 600;
+  }
+  .text-display-sm {
+    font-size: clamp(2rem, 1.2rem + 3.4vw, 3.75rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+  }
+
+  /* Gradient text wash (white -> dimmed) for large display copy */
+  .text-wash {
+    background: linear-gradient(180deg, #ffffff 0%, #c7c7cf 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Hairline grid backdrop, radial-masked */
+  .bg-grid {
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.045) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      #000 40%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      #000 40%,
+      transparent 100%
+    );
+  }
+
+  /* Soft amber glow */
+  .glow-accent {
+    background: radial-gradient(
+      circle at center,
+      rgba(255, 199, 44, 0.16) 0%,
+      rgba(255, 199, 44, 0) 70%
+    );
+  }
+
+  /* Thin top hairline used between sections */
+  .hairline-top {
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* Card surface */
+  .card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+}
+
+/* ---------- Scroll reveal (progressive enhancement) ---------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s var(--ease-out-expo),
+    transform 0.7s var(--ease-out-expo);
+  will-change: opacity, transform;
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 38s linear infinite;
+}
+.marquee-pause:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+/* Slow pulse for the "available" dot */
+@keyframes dot-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(255, 199, 44, 0.55);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 0 6px rgba(255, 199, 44, 0);
+  }
+}
+.dot-live {
+  animation: dot-pulse 2.4s var(--ease-out-expo) infinite;
+}
+
+/* ---------- Reduced motion: disable all the things ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
