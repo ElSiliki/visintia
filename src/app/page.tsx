@@ -15,7 +15,10 @@ const orgJsonLd = {
   name: siteConfig.name,
   description: siteConfig.description,
   url: siteConfig.url,
+  logo: `${siteConfig.url}/icon.svg`,
+  image: `${siteConfig.url}/opengraph-image`,
   email: siteConfig.email,
+  telephone: "+34 622 61 05 71",
   areaServed: siteConfig.location,
   knowsAbout: [
     "Desarrollo web",
