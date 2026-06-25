@@ -22,7 +22,7 @@ export const siteConfig = {
   location: "España",
   locale: "es_ES",
   social: {
-    instagram: "https://instagram.com/visintia.oficial",
+    instagram: "https://instagram.com/visintia_es",
     linkedin: "https://linkedin.com/company/visintia",
   },
   availability: "Disponibles para nuevos proyectos",
